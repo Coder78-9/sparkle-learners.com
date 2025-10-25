@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle learners</title>
+  <style>
+   
+  </style>
+</head>
+<body>
+  <h1>Sparkle learners lessons</h1> 
+  <ul>
+    <li>Math: Multiplication & Division with Multi-Digit Numbers</li>
+    <li>Science: Moon Phases, Tides, and Gravity</li>
+    <li>Reading: Summarizing Texts and Making Inferences</li>
+  </ul>
+
+  <div>
+    <h1>Math</h1> 
+    <h3>Multiplication & Division with Multi-Digit Numbers</h3>
+    <p>After learning how to add and subtract larger numbers, the next step is multiplying and dividing multi-digit numbers. You will learn strategies like breaking numbers into parts using place value. For example, to multiply 23 × 15, you can multiply 23 × 10 and 23 × 5, then add the results together. Division works similarly: you will practice dividing larger numbers by using estimation and repeated subtraction. These skills help solve real-world problems, like calculating total cost, sharing items equally, or figuring out measurements in projects.</p>
+
+    <h1>Reading</h1>
+    <h3>Summarizing Texts and Making Inferences</h3>
+    <p>Now that you know how to find the main idea and supporting details, you will learn to summarize texts in your own words. Summarizing means explaining the most important ideas without copying everything. You will also practice making inferences — using clues from the text to figure out information that isn’t directly stated. For example, if a paragraph says, “The ground was wet and the sky was cloudy,” you can infer that it probably rained. These skills help you understand texts more deeply and answer more challenging questions.</p>
+
+    <h1>Science</h1>
+    <h3>Moon Phases, Tides, and Gravity</h3>
+    <p>Building on what you learned about moon phases and tides, the next step is understanding gravity’s role. The Moon’s gravity pulls on Earth’s oceans, causing high and low tides. The Sun also affects tides, making some tides higher (spring tides) and others lower (neap tides). You will also explore how gravity keeps the Moon in orbit around Earth and Earth in orbit around the Sun. Understanding these patterns helps explain how celestial bodies interact and why tides, eclipses, and the Moon’s phases happen regularly.</p>
+  </div>
+
+  <button id="startquiz">Start Quiz</button>
+  <div id="quiz-area"></div>
+  <div id="feedback"></div>
+
+  <script>
+    var quizButton = document.getElementById("startquiz");
+    var quizArea = document.getElementById("quiz-area");
+    var feedback = document.getElementById("feedback");
+
+    var quizQuestions = [
+      {
+        question: "What is 23 × 15 using the place value strategy?",
+        choices: ["345", "325", "345 + 23", "460"],
+        correct: 0
+      },
+      {
+        question: "Read this paragraph: The ground was wet, and the sky was cloudy. People were carrying umbrellas. What can you infer happened?",
+        choices: ["It rained", "It snowed", "It was sunny", "There was a hurricane"],
+        correct: 0
+      },
+      {
+        question: "Which combination of forces creates spring tides?",
+        choices: ["Moon alone", "Sun alone", "Moon and Sun aligned", "Earth and Sun alone"],
+        correct: 2
+      }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      feedback.textContent = "";
+      var question = quizQuestions[index];
+      quizArea.innerHTML = "<p>" + question.question + "</p>";
+      
+      question.choices.forEach(function(choice, i) {
+        var btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.addEventListener("click", function() {
+          checkAnswer(i);
+        });
+        quizArea.appendChild(btn);
+        quizArea.appendChild(document.createElement("br"));
+      });
+    }
+
+    function checkAnswer(choiceIndex) {
+      var question = quizQuestions[currentQuestionIndex];
+      if (choiceIndex === question.correct) {
+        feedback.textContent = "✅ Correct!";
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+          setTimeout(function() {
+            showQuestion(currentQuestionIndex);
+          }, 1000);
+        } else {
+          quizArea.innerHTML = "<p>🎉 Quiz Finished!</p>";
+          feedback.textContent = "";
+        }
+      } else {
+        feedback.textContent = "❌ Try again!";
+      }
+    }
+
+    quizButton.addEventListener("click", function() {
+      currentQuestionIndex = 0;
+      showQuestion(currentQuestionIndex);
+    });
+  </script>
+</body>
+</html>
