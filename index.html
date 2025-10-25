@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle Learners</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f9ff;
+      text-align: center;
+    }
+
+    #account, #login {
+      color: white;
+      background-color: #5eb8ff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #account { margin-left: 10px; }
+
+    input {
+      margin-top: 8px;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    #username, #password, #usernamelo, #passwordlo {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sparkle Learners</h1>
+  <h4>a <em>down-scaled</em> version of Khan Academy</h4>
+
+  <button id="account">Create Account</button>
+  <button id="login">Login</button>
+
+  <div>
+    <input placeholder="username..." id="username" size="10">
+    <input placeholder="password..." id="password" size="10">
+    <input placeholder="username..." id="usernamelo" size="10">
+    <input placeholder="password..." id="passwordlo" size="10">
+  </div>
+
+  <script>
+    var accountBtn = document.getElementById("account");
+    var loginBtn = document.getElementById("login");
+    var usernameInput = document.getElementById("username");
+    var passwordInput = document.getElementById("password");
+    var usernameloInput = document.getElementById("usernamelo");
+    var passwordloInput = document.getElementById("passwordlo");
+
+    var accountClickedOnce = false;
+    var creatingMode = false;
+
+    // Create Account Button
+    accountBtn.addEventListener("click", function() {
+      if (!accountClickedOnce) {
+        usernameInput.style.display = "inline-block";
+        passwordInput.style.display = "inline-block";
+        usernameloInput.style.display = "none";
+        passwordloInput.style.display = "none";
+        accountClickedOnce = true;
+      } else {
+        loginBtn.style.display = "none";
+        creatingMode = true;
+      }
+    });
+
+    // Create account when Enter is pressed
+    passwordInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter" && creatingMode) {
+        var username = usernameInput.value.trim();
+        var password = passwordInput.value.trim();
+
+        if (!username || !password) {
+          alert("Please enter both username and password!");
+          return;
+        }
+
+        var accounts = JSON.parse(localStorage.getItem("accounts") || "[]");
+        for (var i = 0; i < accounts.length; i++) {
+          if (accounts[i].username === username) {
+            alert("That username already exists!");
+            return;
+          }
+        }
+
+        accounts.push({ username: username, password: password });
+        localStorage.setItem("accounts", JSON.stringify(accounts));
+        alert("Account created successfully!");
+
+        usernameInput.value = "";
+        passwordInput.value = "";
+        usernameInput.style.display = "none";
+        passwordInput.style.display = "none";
+        loginBtn.style.display = "inline-block";
+        creatingMode = false;
+        accountClickedOnce = false;
+      }
+    });
+
+    // Show login inputs
+    loginBtn.addEventListener("click", function() {
+      usernameloInput.style.display = "inline-block";
+      passwordloInput.style.display = "inline-block";
+      usernameInput.style.display = "none";
+      passwordInput.style.display = "none";
+    });
+
+    // Login logic
+    passwordloInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        var username = usernameloInput.value.trim();
+        var password = passwordloInput.value.trim();
+        var accounts = JSON.parse(localStorage.getItem("accounts") || "[]");
+
+        var found = accounts.some(function(acc) {
+          return acc.username === username && acc.password === password;
+        });
+
+        if (found) {
+          alert("Login successful! Welcome, " + username + "!");
+          // Save the current user
+          localStorage.setItem("currentUser", username);
+          // Go to lessons page
+          window.location.href = "lessons.html";
+        } else {
+          alert("Invalid username or password.");
+        }
+      }
+    });
+  </script>
+</body>
+</html>
