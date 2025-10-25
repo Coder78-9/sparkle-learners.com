@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle learners</title>
+  <style>
+   
+  </style>
+</head>
+<body>
+  <h1>Sparkle learners lessons</h1> 
+  <ul>
+    <li>Math: Multi-Digit Multiplication, Division, and Factors</li>
+    <li>Science: Moon Phases, Tides, Gravity, and Eclipses</li>
+    <li>Reading: Summarizing, Inference, and Comparing Ideas</li>
+  </ul>
+
+  <div>
+    <h1>Math</h1> 
+    <h3>Multi-Digit Multiplication, Division, and Factors</h3>
+    <p>Building on multiplication and division, you will now solve multi-digit problems in real-life contexts. For example, if one class has 24 students and each student brings 15 pencils, how many pencils are there in total? You will also learn about factors and multiples to find numbers that divide evenly into others. Understanding these helps with problem solving, patterns, and preparing for more advanced math topics like fractions and decimals.</p>
+
+    <h1>Reading</h1>
+    <h3>Summarizing, Inference, and Comparing Ideas</h3>
+    <p>After mastering summaries and inferences, you will now compare information across paragraphs. For example, reading two paragraphs about different animals, you can compare how they find food or care for their young. You will also learn to summarize longer texts in your own words and support your answers with evidence from the text. This skill helps with critical thinking and understanding more complex stories and informational texts.</p>
+
+    <h1>Science</h1>
+    <h3>Moon Phases, Tides, Gravity, and Eclipses</h3>
+    <p>Now we connect moon phases, tides, and gravity with even bigger space patterns. You will learn how solar and lunar eclipses occur when Earth, Moon, and Sun align. You will explore how the Moon’s gravity, along with the Sun, creates spring and neap tides. Understanding orbits and eclipses helps explain why these events happen regularly and how planets, moons, and stars interact in space. This builds a foundation for learning about our solar system and space science.</p>
+  </div>
+
+  <button id="startquiz">Start Quiz</button>
+  <div id="quiz-area"></div>
+  <div id="feedback"></div>
+
+  <script>
+    var quizButton = document.getElementById("startquiz");
+    var quizArea = document.getElementById("quiz-area");
+    var feedback = document.getElementById("feedback");
+
+    var quizQuestions = [
+      {
+        question: "If one class has 24 students and each student brings 15 pencils, how many pencils are there in total?",
+        choices: ["360", "350", "380", "340"],
+        correct: 0
+      },
+      {
+        question: "Which number is a factor of 36?",
+        choices: ["5", "6", "7", "8"],
+        correct: 1
+      },
+      {
+        question: "Read these two paragraphs about penguins and seals. Both live in cold places and hunt for food, but penguins swim using their wings while seals swim using flippers. What is a key difference between them?",
+        choices: ["Penguins live in warm places", "Seals are birds", "Penguins swim with wings, seals with flippers", "Seals lay eggs"],
+        correct: 2
+      },
+      {
+        question: "Which Moon phase is associated with spring tides?",
+        choices: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"],
+        correct: 0
+      },
+      {
+        question: "What causes a solar eclipse?",
+        choices: ["Moon passes between Sun and Earth", "Earth passes between Moon and Sun", "Sun passes behind Moon", "Moon disappears"],
+        correct: 0
+      }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      feedback.textContent = "";
+      var question = quizQuestions[index];
+      quizArea.innerHTML = "<p>" + question.question + "</p>";
+      
+      question.choices.forEach(function(choice, i) {
+        var btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.addEventListener("click", function() {
+          checkAnswer(i);
+        });
+        quizArea.appendChild(btn);
+        quizArea.appendChild(document.createElement("br"));
+      });
+    }
+
+    function checkAnswer(choiceIndex) {
+      var question = quizQuestions[currentQuestionIndex];
+      if (choiceIndex === question.correct) {
+        feedback.textContent = "✅ Correct!";
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+          setTimeout(function() {
+            showQuestion(currentQuestionIndex);
+          }, 1000);
+        } else {
+          quizArea.innerHTML = "<p>🎉 Quiz Finished!</p>";
+          feedback.textContent = "";
+        }
+      } else {
+        feedback.textContent = "❌ Try again!";
+      }
+    }
+
+    quizButton.addEventListener("click", function() {
+      currentQuestionIndex = 0;
+      showQuestion(currentQuestionIndex);
+    });
+  </script>
+</body>
+</html>
