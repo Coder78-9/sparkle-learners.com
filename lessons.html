@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Your Lessons</title>
+</head>
+<body>
+  <h2>Welcome to Sparkle Lessons!</h2>
+  <p id="welcome"></p>
+
+  <ul>
+    <li><a href="lesson1.html">Lesson 1</a></li>
+  </ul>
+
+  <script>
+    var user = localStorage.getItem("currentUser");
+    document.getElementById("welcome").textContent = "Hello, " + user + "!";
+  </script>
+</body>
+</html>
