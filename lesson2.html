@@ -2,63 +2,31 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Sparkle Learners</title>
+  <title>Sparkle learners</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f0f8ff;
-      color: #333;
-    }
-    h1, h3 {
-      color: #2c3e50;
-    }
-    ul {
-      background-color: #d6eaf8;
-      padding: 15px;
-      border-radius: 10px;
-      list-style-type: square;
-    }
-    button {
-      margin: 5px;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #3498db;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    #feedback {
-      margin-top: 10px;
-      font-weight: bold;
-    }
+   
   </style>
 </head>
 <body>
-  <h1>Sparkle Learners Lessons</h1> 
+  <h1>Sparkle learners lessons</h1> 
   <ul>
-    <li>Math: Place Value Adventures</li>
-    <li>Science: Exploring Moon Phases</li>
-    <li>Reading: Comprehension Challenges</li>
+    <li>Math: Adding & Subtracting with Larger Numbers</li>
+    <li>Science: Moon Phases and Tides</li>
+    <li>Reading: Main Ideas and Supporting Details</li>
   </ul>
 
   <div>
     <h1>Math</h1> 
-    <h3>Place Value Adventures</h3>
-    <p>Understanding place value helps you become a math detective! Each digit in a number has its own value depending on where it is. For example, in 6,482, the 6 is in the thousands place, the 4 is in the hundreds place, the 8 is in the tens place, and the 2 is in the ones place. This means 6,482 = 6,000 + 400 + 80 + 2. Knowing place value helps you compare big numbers, solve puzzles, and even understand money better. It's like giving each digit a superpower in the number world!</p>
+    <h3>Adding & Subtracting with Larger Numbers</h3>
+    <p>Now that you understand place value, you can use it to add and subtract bigger numbers. For example, when adding 345 + 276, you start with the ones place, then the tens, and then the hundreds. Place value helps you line up the numbers correctly and understand why carrying or borrowing works. You will also learn to check your answers by estimating sums and differences, which helps make sure your calculations are reasonable. Mastering these skills will help you solve real-life problems like figuring out money or measurements.</p>
 
     <h1>Reading</h1>
-    <h3>Comprehension Challenges</h3>
-    <p>For reading today, we will dive into exciting paragraphs and answer questions. Here’s one to start:  
-    (Penguins are birds that cannot fly, but they are amazing swimmers. They have thick feathers and a layer of fat to keep them warm in icy places. Penguins eat fish, squid, and other sea animals. They often live in large groups called colonies. Penguins slide on their bellies across ice to move faster. They are playful and sometimes communicate with loud calls. Watching penguins shows us how animals adapt to their homes.)  
-    If asked, "How do penguins move on ice?" the answer could be: "They slide on their bellies to move faster." Reading carefully and looking for clues in the text will help you answer questions correctly in the quiz below.</p>
+    <h3>Main Ideas and Supporting Details</h3>
+    <p>After learning to read paragraphs, the next step is understanding the main idea and supporting details. The main idea is what the paragraph is mostly about. Supporting details are facts or examples that explain or prove the main idea. For example, if a paragraph is about penguins’ swimming skills, details about how they dive, slide on ice, and catch fish support that idea. Learning to identify main ideas and supporting details helps you summarize texts and answer comprehension questions more accurately.</p>
 
     <h1>Science</h1>
-    <h3>Exploring Moon Phases</h3>
-    <p>The Moon changes shape in the night sky, and these shapes are called phases. Phases happen because the Sun lights up different parts of the Moon as it orbits Earth. The main phases are new moon, crescent moon, first quarter, full moon, and last quarter. During a new moon, we can’t see the Moon at all because the lit side faces away from us. In a full moon, the Moon shines brightly and we can see it completely. Watching moon phases helps us understand time, months, and the Moon’s journey around Earth. Learning this is like unlocking a secret sky calendar!</p>
+    <h3>Moon Phases and Tides</h3>
+    <p>Next, you will connect moon phases to real-world effects on Earth. As the Moon orbits Earth, its phases change, and these changes affect ocean tides. High tides occur when the Moon’s gravity pulls on Earth’s water, and low tides happen when the pull is weaker. You will learn to identify which phase of the Moon causes spring tides (very high and very low tides) and neap tides (moderate tides). Understanding this helps explain patterns in the ocean and shows how Earth and Moon are connected.</p>
   </div>
 
   <button id="startquiz">Start Quiz</button>
@@ -72,19 +40,19 @@
 
     var quizQuestions = [
       {
-        question: "What is the value of the 8 in 6,482?",
-        choices: ["8", "80", "800", "8,000"],
+        question: "What is the sum of 345 + 276?",
+        choices: ["611", "621", "631", "641"],
         correct: 2
       },
       {
-        question: "Read this paragraph: Penguins are birds that cannot fly, but they are amazing swimmers. They have thick feathers and a layer of fat to keep them warm in icy places. Penguins eat fish, squid, and other sea animals. They often live in large groups called colonies. Penguins slide on their bellies across ice to move faster. They are playful and sometimes communicate with loud calls. Watching penguins shows us how animals adapt to their homes. How do penguins move on ice?",
-        choices: ["They walk slowly", "They fly", "They slide on their bellies", "They hop on one foot"],
-        correct: 2
+        question: "Read this paragraph: Penguins are amazing swimmers. They slide on ice and dive underwater to catch fish. Penguins live in large families called colonies. What is the main idea of this paragraph?",
+        choices: ["Penguins live in colonies", "Penguins are amazing swimmers", "Penguins eat fish", "Penguins slide on ice"],
+        correct: 1
       },
       {
-        question: "What phase of the Moon can you see completely lit?",
-        choices: ["New Moon", "Crescent Moon", "Full Moon", "First Quarter"],
-        correct: 2
+        question: "Which Moon phase is most likely to create spring tides?",
+        choices: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"],
+        correct: 0
       }
     ];
 
@@ -116,7 +84,7 @@
             showQuestion(currentQuestionIndex);
           }, 1000);
         } else {
-          quizArea.innerHTML = "<p>🎉 Quiz Finished! Great job!</p>";
+          quizArea.innerHTML = "<p>🎉 Quiz Finished!</p>";
           feedback.textContent = "";
         }
       } else {
@@ -131,3 +99,4 @@
   </script>
 </body>
 </html>
+
