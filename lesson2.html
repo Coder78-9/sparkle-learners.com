@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle Learners</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    h1, h3 {
+      color: #2c3e50;
+    }
+    ul {
+      background-color: #d6eaf8;
+      padding: 15px;
+      border-radius: 10px;
+      list-style-type: square;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sparkle Learners Lessons</h1> 
+  <ul>
+    <li>Math: Place Value Adventures</li>
+    <li>Science: Exploring Moon Phases</li>
+    <li>Reading: Comprehension Challenges</li>
+  </ul>
+
+  <div>
+    <h1>Math</h1> 
+    <h3>Place Value Adventures</h3>
+    <p>Understanding place value helps you become a math detective! Each digit in a number has its own value depending on where it is. For example, in 6,482, the 6 is in the thousands place, the 4 is in the hundreds place, the 8 is in the tens place, and the 2 is in the ones place. This means 6,482 = 6,000 + 400 + 80 + 2. Knowing place value helps you compare big numbers, solve puzzles, and even understand money better. It's like giving each digit a superpower in the number world!</p>
+
+    <h1>Reading</h1>
+    <h3>Comprehension Challenges</h3>
+    <p>For reading today, we will dive into exciting paragraphs and answer questions. Here’s one to start:  
+    (Penguins are birds that cannot fly, but they are amazing swimmers. They have thick feathers and a layer of fat to keep them warm in icy places. Penguins eat fish, squid, and other sea animals. They often live in large groups called colonies. Penguins slide on their bellies across ice to move faster. They are playful and sometimes communicate with loud calls. Watching penguins shows us how animals adapt to their homes.)  
+    If asked, "How do penguins move on ice?" the answer could be: "They slide on their bellies to move faster." Reading carefully and looking for clues in the text will help you answer questions correctly in the quiz below.</p>
+
+    <h1>Science</h1>
+    <h3>Exploring Moon Phases</h3>
+    <p>The Moon changes shape in the night sky, and these shapes are called phases. Phases happen because the Sun lights up different parts of the Moon as it orbits Earth. The main phases are new moon, crescent moon, first quarter, full moon, and last quarter. During a new moon, we can’t see the Moon at all because the lit side faces away from us. In a full moon, the Moon shines brightly and we can see it completely. Watching moon phases helps us understand time, months, and the Moon’s journey around Earth. Learning this is like unlocking a secret sky calendar!</p>
+  </div>
+
+  <button id="startquiz">Start Quiz</button>
+  <div id="quiz-area"></div>
+  <div id="feedback"></div>
+
+  <script>
+    var quizButton = document.getElementById("startquiz");
+    var quizArea = document.getElementById("quiz-area");
+    var feedback = document.getElementById("feedback");
+
+    var quizQuestions = [
+      {
+        question: "What is the value of the 8 in 6,482?",
+        choices: ["8", "80", "800", "8,000"],
+        correct: 2
+      },
+      {
+        question: "Read this paragraph: Penguins are birds that cannot fly, but they are amazing swimmers. They have thick feathers and a layer of fat to keep them warm in icy places. Penguins eat fish, squid, and other sea animals. They often live in large groups called colonies. Penguins slide on their bellies across ice to move faster. They are playful and sometimes communicate with loud calls. Watching penguins shows us how animals adapt to their homes. How do penguins move on ice?",
+        choices: ["They walk slowly", "They fly", "They slide on their bellies", "They hop on one foot"],
+        correct: 2
+      },
+      {
+        question: "What phase of the Moon can you see completely lit?",
+        choices: ["New Moon", "Crescent Moon", "Full Moon", "First Quarter"],
+        correct: 2
+      }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      feedback.textContent = "";
+      var question = quizQuestions[index];
+      quizArea.innerHTML = "<p>" + question.question + "</p>";
+      
+      question.choices.forEach(function(choice, i) {
+        var btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.addEventListener("click", function() {
+          checkAnswer(i);
+        });
+        quizArea.appendChild(btn);
+        quizArea.appendChild(document.createElement("br"));
+      });
+    }
+
+    function checkAnswer(choiceIndex) {
+      var question = quizQuestions[currentQuestionIndex];
+      if (choiceIndex === question.correct) {
+        feedback.textContent = "✅ Correct!";
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+          setTimeout(function() {
+            showQuestion(currentQuestionIndex);
+          }, 1000);
+        } else {
+          quizArea.innerHTML = "<p>🎉 Quiz Finished! Great job!</p>";
+          feedback.textContent = "";
+        }
+      } else {
+        feedback.textContent = "❌ Try again!";
+      }
+    }
+
+    quizButton.addEventListener("click", function() {
+      currentQuestionIndex = 0;
+      showQuestion(currentQuestionIndex);
+    });
+  </script>
+</body>
+</html>
