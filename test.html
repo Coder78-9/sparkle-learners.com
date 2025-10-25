@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle Learners: Interactive Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    h1 {
+      color: #1a5276;
+    }
+    h2 {
+      color: #2874a6;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    button {
+      margin: 3px 0;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #feedback {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sparkle Learners: Interactive Test</h1>
+  <p>Click the correct answer for each question. You will see feedback instantly!</p>
+
+  <div id="quiz-area"></div>
+  <div id="feedback"></div>
+
+  <script>
+    var quizArea = document.getElementById("quiz-area");
+    var feedback = document.getElementById("feedback");
+
+    var quizQuestions = [
+      // Math
+      {
+        question: "1. What is 234 × 12?",
+        choices: ["2,808", "2,848", "2,804", "2,820"],
+        correct: 0
+      },
+      {
+        question: "2. A classroom has 36 students. Each student brings 14 pencils. How many pencils are there in total?",
+        choices: ["480", "504", "490", "496"],
+        correct: 1
+      },
+      {
+        question: "3. Which number is a factor of 48?",
+        choices: ["5", "6", "7", "9"],
+        correct: 1
+      },
+      {
+        question: "4. What is the greatest common multiple of 4 and 6 under 50?",
+        choices: ["24", "36", "48", "12"],
+        correct: 2
+      },
+      // Reading
+      {
+        question: "5. Penguins are birds that cannot fly, but they swim very well. They live in large colonies and slide on ice to move faster. Penguins eat fish and work together to find food. What is the main idea?",
+        choices: ["Penguins live in colonies", "Penguins are birds that swim and work together", "Penguins eat fish", "Penguins slide on ice"],
+        correct: 1
+      },
+      {
+        question: "6. From the paragraph above, what can you infer about penguins?",
+        choices: ["They are very fast runners", "They are strong swimmers and social animals", "They can fly short distances", "They only live alone"],
+        correct: 1
+      },
+      {
+        question: "7. Dogs have fur, tails, and teeth for eating and playing. They are loyal and learn tricks. Cats have fur, claws, and whiskers. They like to play and hunt small animals. Which is a key difference?",
+        choices: ["Dogs are loyal; cats are not", "Dogs have tails; cats do not", "Dogs are trained for tricks; cats are more independent", "Dogs are smaller than cats"],
+        correct: 2
+      },
+      // Science
+      {
+        question: "8. Which Moon phase is associated with spring tides?",
+        choices: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"],
+        correct: 0
+      },
+      {
+        question: "9. What causes a solar eclipse?",
+        choices: ["Moon passes between Sun and Earth", "Earth passes between Moon and Sun", "Sun passes behind the Moon", "Moon disappears"],
+        correct: 0
+      },
+      {
+        question: "10. Which of the following explains why tides occur?",
+        choices: ["The Sun’s heat warms the oceans", "The Moon’s gravity pulls on Earth’s oceans", "Earth spins faster at night", "Waves push the water to shore"],
+        correct: 1
+      },
+      {
+        question: "11. Why does the Moon orbit the Earth?",
+        choices: ["Because of the Sun’s gravity", "Because of Earth’s gravity", "Because the Moon wants to move", "Because of tides"],
+        correct: 1
+      }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      feedback.textContent = "";
+      var question = quizQuestions[index];
+      quizArea.innerHTML = "<div class='question'><p>" + question.question + "</p></div>";
+      
+      question.choices.forEach(function(choice, i) {
+        var btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.addEventListener("click", function() {
+          checkAnswer(i);
+        });
+        quizArea.appendChild(btn);
+        quizArea.appendChild(document.createElement("br"));
+      });
+    }
+
+    function checkAnswer(choiceIndex) {
+      var question = quizQuestions[currentQuestionIndex];
+      if (choiceIndex === question.correct) {
+        feedback.textContent = "✅ Correct!";
+      } else {
+        feedback.textContent = "❌ Incorrect. Try again!";
+      }
+      // automatically move to next question after 1 second
+      setTimeout(function() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+          showQuestion(currentQuestionIndex);
+        } else {
+          quizArea.innerHTML = "<p>🎉 Test Complete! Well done!</p>";
+          feedback.textContent = "";
+        }
+      }, 1000);
+    }
+
+    // start the test
+    showQuestion(currentQuestionIndex);
+  </script>
+</body>
+</html>
