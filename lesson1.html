@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sparkle learners</title>
+  <style>
+   
+  </style>
+</head>
+<body>
+  <h1>Sparkle learners lessons</h1> 
+  <ul>
+    <li>Math: Place Value </li>
+    <li>Science: Moon Phases</li>
+    <li>Reading: Read paragraphs and answer questions</li>
+  </ul>
+
+  <div>
+    <h1>Math</h1> 
+    <h3>Place value</h3>
+    <p>Place value helps us understand what each digit in a number means. In math, the position of a number tells us its value. For example, in the number 345, the 3 is in the hundreds place, the 4 is in the tens place, and the 5 is in the ones place. This means 345 is made of 300 + 40 + 5. Place value helps us read, write, and compare big numbers. It also makes it easier to add, subtract, multiply, and divide. Understanding place value is an important part of learning math.</p>
+
+    <h1>Reading</h1>
+    <h3>Reading paragraphs and answer questions</h3>
+    <p>For reading today, we will read paragraphs and answer questions. We have this paragraph right here: 
+    (Cats are small animals that many people keep as pets. They have soft fur, sharp claws, and whiskers that help them feel their surroundings. Cats are very good at jumping and climbing because they are strong and flexible. They like to chase toys and sometimes hunt small animals like mice. Most cats clean themselves by licking their fur with their tongues. They can be very playful, but they also enjoy napping in warm, sunny spots. People love cats because they are cute, friendly, and fun to be around.) 
+    This paragraph talks about cats. Let's say we are asked the question: How do cats look like? We could answer: "Cats have soft fur, sharp claws, and whiskers." In the quiz below, you will have to read paragraphs like these and answer questions. It helps to read the paragraph, and re-read it, then find the best answer.
+    </p>
+
+    <h1>Science</h1>
+    <h3>Moon phases</h3>
+    <p>The Moon has different shapes in the sky called phases. These phases happen because the Sun lights up different parts of the Moon as it moves around Earth. The main phases are new moon, crescent moon, first quarter, full moon, and last quarter. During a new moon, we can’t see the Moon at all because the Sun is shining on the side we can’t see. When it’s a full moon, we can see the whole round face of the Moon shining brightly. The phases repeat in the same order every month. Watching the Moon’s phases helps us understand how it moves in space. In the quiz, you will have to see pictures of moon phases and answer which one is correct.</p>
+  </div>
+
+  <button id="startquiz">Start Quiz</button>
+  <div id="quiz-area"></div>
+  <div id="feedback"></div>
+
+  <script>
+    var quizButton = document.getElementById("startquiz");
+    var quizArea = document.getElementById("quiz-area");
+    var feedback = document.getElementById("feedback");
+
+    var quizQuestions = [
+      {
+        question: "What is the value of the 5 in 53?",
+        choices: ["5", "50", "500", "3"],
+        correct: 1
+      },
+      {
+        question: "Read this paragraph: Dogs are animals that many people keep as pets. They have fur, tails, and strong teeth that help them eat and play. Dogs can be big or small, and they come in many different colors and breeds. They like to run, fetch, and play with their owners. Dogs can also learn tricks and follow commands because they are very smart. People love dogs because they are loyal, friendly, and fun to be around. Taking care of a dog means feeding it, giving it water, and making sure it stays healthy and happpy. How can you take care of a dog? ",
+        choices: ["Cuddle with it all day", "Give it food, water, and make sure it is healthy and happy", "Buying a bunch of toys", "Do nothing"],
+        correct: 1
+      },
+      {
+        question: "What does the new moon look like?",
+        choices: ["You see the whole moon", "You see half of the moon", "You see none of the moon", "You see a little bit of the moon"],
+        correct: 2
+      }
+    ];
+
+    var currentQuestionIndex = 0;
+
+    function showQuestion(index) {
+      feedback.textContent = "";
+      var question = quizQuestions[index];
+      quizArea.innerHTML = "<p>" + question.question + "</p>";
+      
+      question.choices.forEach(function(choice, i) {
+        var btn = document.createElement("button");
+        btn.textContent = choice;
+        btn.addEventListener("click", function() {
+          checkAnswer(i);
+        });
+        quizArea.appendChild(btn);
+        quizArea.appendChild(document.createElement("br"));
+      });
+    }
+
+    function checkAnswer(choiceIndex) {
+      var question = quizQuestions[currentQuestionIndex];
+      if (choiceIndex === question.correct) {
+        feedback.textContent = "✅ Correct!";
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+          // automatically move to next question after 1 second
+          setTimeout(function() {
+            showQuestion(currentQuestionIndex);
+          }, 1000);
+        } else {
+          quizArea.innerHTML = "<p>🎉 Quiz Finished!</p>";
+          feedback.textContent = "";
+        }
+      } else {
+        feedback.textContent = "❌ Try again!";
+      }
+    }
+
+    quizButton.addEventListener("click", function() {
+      currentQuestionIndex = 0;
+      showQuestion(currentQuestionIndex);
+    });
+  </script>
+</body>
+</html>
