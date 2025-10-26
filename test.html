@@ -1,123 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Sparkle Learners: Interactive Test</title>
-  <style>
-    
-  </style>
+    <meta charset="utf-8">
+    <title>Last Test/title>
+    <style>
+        body {
+            background-color:lightblue;
+        }
+        h1,h3 {
+            text-align: center;
+            color:rgb(54, 51, 54);
+        }
+       button {
+  border-radius:22%;
+  background-color: #007bff; 
+  color: white; 
+  border: none;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+#result {
+    background-color:white;
+    border-radius:9%;
+}
+#password-section {
+    display:none;
+}
+#feedback-list {
+    display:none;
+}
+    </style>
 </head>
 <body>
-  <h1>Sparkle Learners: Interactive Test</h1>
-  <p>Click the correct answer for each question. You will see feedback instantly!</p>
+    <h1>Last test</h1>
+<div id="quiz-section">
+    <h3>Question 1: What is the value of the 3 in 345?</h3>
+    <button>3</button><br>
+    <button>30</button><br>
+    <button data-correct="true">300</button><br>
+    <button>45</button><br>
 
-  <div id="quiz-area"></div>
-  <div id="feedback"></div>
+    <h3>Question 2: What is a Main Idea?</h3>
+    <button>It is a detail from the story</button><br>
+    <button data-correct="true">It is what the story is about</button><br>
+    <button>It is the text under a picture</button><br>
+    <button>It is the summary of a story</button><br>
 
-  <script>
-    var quizArea = document.getElementById("quiz-area");
-    var feedback = document.getElementById("feedback");
+    <h3>Question 3: How many phases does the moon have?</h3>
+    <button data-correct="true">8</button><br>
+    <button>7</button><br>
+    <button>4</button><br>
+    <button>1</button><br>
 
-    var quizQuestions = [
-      // Math
-      {
-        question: "1. What is 234 × 12?",
-        choices: ["2,808", "2,848", "2,804", "2,820"],
-        correct: 0
-      },
-      {
-        question: "2. A classroom has 36 students. Each student brings 14 pencils. How many pencils are there in total?",
-        choices: ["480", "504", "490", "496"],
-        correct: 1
-      },
-      {
-        question: "3. Which number is a factor of 48?",
-        choices: ["5", "6", "7", "9"],
-        correct: 1
-      },
-      {
-        question: "4. What is the greatest common multiple of 4 and 6 under 50?",
-        choices: ["24", "36", "48", "12"],
-        correct: 2
-      },
-      // Reading
-      {
-        question: "5. Penguins are birds that cannot fly, but they swim very well. They live in large colonies and slide on ice to move faster. Penguins eat fish and work together to find food. What is the main idea?",
-        choices: ["Penguins live in colonies", "Penguins are birds that swim and work together", "Penguins eat fish", "Penguins slide on ice"],
-        correct: 1
-      },
-      {
-        question: "6. From the paragraph above, what can you infer about penguins?",
-        choices: ["They are very fast runners", "They are strong swimmers and social animals", "They can fly short distances", "They only live alone"],
-        correct: 1
-      },
-      {
-        question: "7. Dogs have fur, tails, and teeth for eating and playing. They are loyal and learn tricks. Cats have fur, claws, and whiskers. They like to play and hunt small animals. Which is a key difference?",
-        choices: ["Dogs are loyal; cats are not", "Dogs have tails; cats do not", "Dogs are trained for tricks; cats are more independent", "Dogs are smaller than cats"],
-        correct: 2
-      },
-      // Science
-      {
-        question: "8. Which Moon phase is associated with spring tides?",
-        choices: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"],
-        correct: 0
-      },
-      {
-        question: "9. What causes a solar eclipse?",
-        choices: ["Moon passes between Sun and Earth", "Earth passes between Moon and Sun", "Sun passes behind the Moon", "Moon disappears"],
-        correct: 0
-      },
-      {
-        question: "10. Which of the following explains why tides occur?",
-        choices: ["The Sun’s heat warms the oceans", "The Moon’s gravity pulls on Earth’s oceans", "Earth spins faster at night", "Waves push the water to shore"],
-        correct: 1
-      },
-      {
-        question: "11. Why does the Moon orbit the Earth?",
-        choices: ["Because of the Sun’s gravity", "Because of Earth’s gravity", "Because the Moon wants to move", "Because of tides"],
-        correct: 1
-      }
-    ];
+   <h3>Question 4: What is 789+45 =</h3>
+    <button data-correct="true">834</button><br>
+    <button>769</button><br>
+    <button>894</button><br>
+    <button>799</button><br>
 
-    var currentQuestionIndex = 0;
+    <h3>Correct answers:</h3>
+    <div id="result">Correct: 0, Wrong: 0</div>
+    <button id="show-feedback-btn">Feedback</button>
+    <div id="password-section">
+        <input id="input"><button id="password-submit">submit</button>
+    </div>
+</div>
 
-    function showQuestion(index) {
-      feedback.textContent = "";
-      var question = quizQuestions[index];
-      quizArea.innerHTML = "<div class='question'><p>" + question.question + "</p></div>";
-      
-      question.choices.forEach(function(choice, i) {
-        var btn = document.createElement("button");
-        btn.textContent = choice;
-        btn.addEventListener("click", function() {
-          checkAnswer(i);
+<div id="feedback-list"></div>
+
+<script>
+    // Feedback array
+    var feedbackList = [];
+    var savedFeedback = localStorage.getItem("feedback");
+    if (savedFeedback) {
+        feedbackList = JSON.parse(savedFeedback);
+    }
+
+    var correctCount = 0;
+    var wrongCount = 0;
+
+    // Quiz buttons — exclude feedback and show-feedback buttons
+    var buttonEls = document.querySelectorAll("#quiz-section button:not(#submit-feedback):not(#show-feedback-btn)");
+    buttonEls.forEach(function(button) {
+        button.addEventListener("click", function() {
+            if (this.getAttribute("data-correct") === "true") {
+                correctCount++;
+            } else {
+                wrongCount++;
+            }
+            document.getElementById("result").innerHTML = "Correct: " + correctCount + ", Wrong: " + wrongCount;
         });
-        quizArea.appendChild(btn);
-        quizArea.appendChild(document.createElement("br"));
-      });
-    }
-
-    function checkAnswer(choiceIndex) {
-      var question = quizQuestions[currentQuestionIndex];
-      if (choiceIndex === question.correct) {
-        feedback.textContent = "✅ Correct!";
-      } else {
-        feedback.textContent = "❌ Incorrect. Try again!";
-      }
-      // automatically move to next question after 1 second
-      setTimeout(function() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < quizQuestions.length) {
-          showQuestion(currentQuestionIndex);
-        } else {
-          quizArea.innerHTML = "<p>🎉 Test Complete! Well done!</p>";
-          feedback.textContent = "";
-        }
-      }, 1000);
-    }
-
-    // start the test
-    showQuestion(currentQuestionIndex);
-  </script>
+    });
+</script>
 </body>
 </html>
