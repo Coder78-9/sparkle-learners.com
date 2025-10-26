@@ -9,22 +9,20 @@
   <h2>Welcome to Sparkle Lessons!</h2>
   <p id="welcome"></p>
 
-  <ul id="lesson-list"></ul>
+  <ul id="lesson-list">
+    <li> <a href="lesson1.html"></a></li>
+    <li> <a href="lesson2.html"></a></li>
+    <li><a href="lesson3.html"></a></li>
+    <li><a href="lesson4.html"></a></li>
+    <li><a href="lesson5.html"></a></li>
+    <li><a href="test.html"></a></li>
+  </ul>
 
   <script>
     // Display current user
     var user = localStorage.getItem("currentUser");
     document.getElementById("welcome").textContent = "Hello, " + user + "!";
 
-    // Generate lesson links dynamically
-    var lessonList = document.getElementById("lesson-list");
-    for (var i = 1; i <= 30; i++) {
-      var li = document.createElement("li");
-      var a = document.createElement("a");
-      a.href = "lesson" + i + ".html"; // Link to lesson1.html, lesson2.html, etc.
-      a.textContent = "Lesson " + i;
-      li.appendChild(a);
-      lessonList.appendChild(li);
     }
   </script>
 </body>
