@@ -1,99 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Last Test/title>
-    <style>
-        body {
-            background-color:lightblue;
-        }
-        h1,h3 {
-            text-align: center;
-            color:rgb(54, 51, 54);
-        }
-       button {
-  border-radius:22%;
-  background-color: #007bff; 
-  color: white; 
-  border: none;
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 16px;
-}
-#result {
-    background-color:white;
-    border-radius:9%;
-}
-#password-section {
-    display:none;
-}
-#feedback-list {
-    display:none;
-}
-    </style>
+  <meta charset="utf-8">
+  <title>Last Test</title>
 </head>
 <body>
-    <h1>Last test</h1>
-<div id="quiz-section">
-    <h3>Question 1: What is the value of the 3 in 345?</h3>
-    <button>3</button><br>
-    <button>30</button><br>
-    <button data-correct="true">300</button><br>
-    <button>45</button><br>
+  <h1>Last test</h1>
 
-    <h3>Question 2: What is a Main Idea?</h3>
-    <button>It is a detail from the story</button><br>
-    <button data-correct="true">It is what the story is about</button><br>
-    <button>It is the text under a picture</button><br>
-    <button>It is the summary of a story</button><br>
-
-    <h3>Question 3: How many phases does the moon have?</h3>
-    <button data-correct="true">8</button><br>
-    <button>7</button><br>
-    <button>4</button><br>
-    <button>1</button><br>
-
-   <h3>Question 4: What is 789+45 =</h3>
-    <button data-correct="true">834</button><br>
-    <button>769</button><br>
-    <button>894</button><br>
-    <button>799</button><br>
-
-    <h3>Correct answers:</h3>
-    <div id="result">Correct: 0, Wrong: 0</div>
-    <button id="show-feedback-btn">Feedback</button>
-    <div id="password-section">
-        <input id="input"><button id="password-submit">submit</button>
+  <div id="quiz-section">
+    <div class="question">
+      <h3>Question 1: What is the value of the 3 in 345?</h3>
+      <div class="options">
+        <button>3</button>
+        <button>30</button>
+        <button data-correct="true">300</button>
+        <button>45</button>
+      </div>
     </div>
-</div>
 
-<div id="feedback-list"></div>
+    <div class="question">
+      <h3>Question 2: What is a Main Idea?</h3>
+      <div class="options">
+        <button>It is a detail from the story</button>
+        <button data-correct="true">It is what the story is about</button>
+        <button>It is the text under a picture</button>
+        <button>It is the summary of a story</button>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Question 3: How many phases does the moon have?</h3>
+      <div class="options">
+        <button data-correct="true">8</button>
+        <button>7</button>
+        <button>4</button>
+        <button>1</button>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>Question 4: What is 789+45 =</h3>
+      <div class="options">
+        <button data-correct="true">834</button>
+        <button>769</button>
+        <button>894</button>
+        <button>799</button>
+      </div>
+    </div>
+
+    <h3>Results</h3>
+    <div id="result">Correct: 0, Wrong: 0</div>
+  </div>
 
 <script>
-    // Feedback array
-    var feedbackList = [];
-    var savedFeedback = localStorage.getItem("feedback");
-    if (savedFeedback) {
-        feedbackList = JSON.parse(savedFeedback);
-    }
+  var correctCount = 0;
+  var wrongCount = 0;
 
-    var correctCount = 0;
-    var wrongCount = 0;
+  function updateResult() {
+    document.getElementById('result').textContent = 'Correct: ' + correctCount + ', Wrong: ' + wrongCount;
+  }
 
-    // Quiz buttons — exclude feedback and show-feedback buttons
-    var buttonEls = document.querySelectorAll("#quiz-section button:not(#submit-feedback):not(#show-feedback-btn)");
-    buttonEls.forEach(function(button) {
-        button.addEventListener("click", function() {
-            if (this.getAttribute("data-correct") === "true") {
-                correctCount++;
-            } else {
-                wrongCount++;
-            }
-            document.getElementById("result").innerHTML = "Correct: " + correctCount + ", Wrong: " + wrongCount;
-        });
+  var questionEls = document.querySelectorAll('.question');
+  questionEls.forEach(function(qEl) {
+    var answered = false;
+    var buttons = qEl.querySelectorAll('button');
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        buttons.forEach(function(b) { b.disabled = true; });
+        if (this.getAttribute('data-correct') === 'true') {
+          correctCount++;
+        } else {
+          wrongCount++;
+        }
+        updateResult();
+      });
     });
+  });
+
+  updateResult();
 </script>
 </body>
 </html>
